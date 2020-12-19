@@ -5,20 +5,18 @@
         </div>
 
         <input type="number" placeholder="New number" class="input">
-        <button @click="newNumber(), getAverage(), isEmpty()" class="btn">{{ addButtonText }}</button>
+        <button @click="newNumber()" class="btn">Add</button>
 
-        <p class="box__emptyerror">{{ listIsEmpty }}</p>
+        <p class="box__emptyerror">{{ listStatus }}</p>
 
         <div class="box__container">
             <div v-for="number in numbers" :key="number.id" class="box__container__item">
                 <p class="input p">{{ number.v }}</p>
-                <button @click="removeNumber(number.id), getAverage(), isEmpty()" class="btn">{{ removeButtonText }}</button>
+                <button @click="removeNumber(number.id)" class="btn">Remove</button>
             </div>
         </div>
 
-        <div class="box__result none">
-            <p class="box__result__p">{{ average }}</p>
-        </div>
+        <p class="box__result none">{{ average }}</p>
     </div>
 </template>
 
@@ -28,11 +26,8 @@
         data: function() {
             return {
                 appTitle: "Average Calculator",
-                addButtonText: "Add",
-                removeButtonText: "Remove",
-                numberCountText: "Numbers",
-                listIsEmpty: "List is empty",
-                version: "v1.0.0",
+                listStatus: "List is empty",
+                version: "v1.0.1",
 
                 numbers: [],
                 average: 0,
@@ -42,18 +37,20 @@
             newNumber: function() {
                 const input = document.querySelector('input');
                 const val = input.value;
-
                 const id = Math.random();
                 this.numbers.push({v: parseInt(val, 10), id: id});
 
-                this.listIsEmpty = "Numbers";
+                this.listStatus = "Numbers";
+                this.getAverage();
+                this.isEmpty();
             },
-            removeNumber: function(ide) {
+            removeNumber: function(newID) {
                 for (let i = 0; i < this.numbers.length; i++) {
-                    if (this.numbers[i].id === ide) {
+                    if (this.numbers[i].id === newID) {
                         this.numbers.splice(this.numbers[i], 1);
                     }
                 }
+                this.isEmpty();
             },
             getAverage: function() {
                 let i = 0.00;
@@ -62,12 +59,12 @@
                     suma = suma + this.numbers[i].v;
                     const average = suma / this.numbers.length;
                     this.average = average.toFixed(2);
-                    // console.log(average);
-                }    
+                }
+                this.isEmpty();
             },
             isEmpty: function() {
                 if (this.numbers.length <= 0) {
-                    this.listIsEmpty = "List is empty";
+                    this.listStatus = "List is empty";
                     document.querySelector('.box__result').classList.add('none');
                 } else {
                     document.querySelector('.box__result').classList.remove('none');
