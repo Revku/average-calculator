@@ -4,8 +4,9 @@
             <h2>{{ appTitle }}</h2>
         </div>
 
-        <input type="number" placeholder="New number" class="input">
+        <input type="text" placeholder="New number" class="input">
         <button @click="newNumber()" class="btn">Add</button>
+        <p class="errorbox">{{ errorMessage }}</p>
 
         <p class="box__emptyerror">{{ listStatus }}</p>
 
@@ -27,7 +28,8 @@
             return {
                 appTitle: "Average Calculator",
                 listStatus: "List is empty",
-                version: "v1.0.1",
+                version: "v1.0.2",
+                errorMessage: '',
 
                 numbers: [],
                 average: 0,
@@ -38,11 +40,18 @@
                 const input = document.querySelector('input');
                 const val = input.value;
                 const id = Math.random();
-                this.numbers.push({v: parseInt(val, 10), id: id});
-
-                this.listStatus = "Numbers";
-                this.getAverage();
+                if (!val) {
+                    this.errorMessage = "Field is empty!";
+                } else if (isNaN(val)) {
+                    this.errorMessage = "Value is not a number!";
+                } else {
+                    this.numbers.push({v: parseInt(val, 10), id: id});
+                    this.listStatus = "Numbers";
+                    this.errorMessage = "";
+                    this.getAverage();
+                }
                 this.isEmpty();
+
             },
             removeNumber: function(newID) {
                 for (let i = 0; i < this.numbers.length; i++) {
@@ -51,6 +60,7 @@
                     }
                 }
                 this.isEmpty();
+                this.getAverage();
             },
             getAverage: function() {
                 let i = 0.00;
@@ -69,7 +79,7 @@
                 } else {
                     document.querySelector('.box__result').classList.remove('none');
                 }
-            }
+            },
         }
     }
 </script>
@@ -107,7 +117,6 @@
     h2 {
         font-weight: 400;
         text-align: center;
-        // display: inline-block;
         margin-top: 30px;
         margin-bottom: 50px;
         margin-left: 30px;
@@ -130,6 +139,12 @@
     &__container {
         margin-top: 10px;
     }
+}
+
+.errorbox {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 @media (max-width: 460px) {
