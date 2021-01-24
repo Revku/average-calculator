@@ -1,0 +1,10 @@
+{
+    "appTitle": "Average Calculator",
+    "addButton": "Add",
+    "removeButton": "Remove",
+    "inputPlaceholder": "New number ex. 5 or 5.25",
+    "listStatusEmpty": "List is empty",
+    "listStatusNumbers": "Numbers",
+    "errorField": "Field is empty!",
+    "errorNaN": "Value is not a number!"
+}

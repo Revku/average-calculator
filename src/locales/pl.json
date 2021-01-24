@@ -1,0 +1,10 @@
+{
+    "appTitle": "Kalkulator Średniej",
+    "addButton": "Dodaj",
+    "removeButton": "Usuń",
+    "inputPlaceholder": "Nowa liczba np. 5 lub 5.25",
+    "listStatusEmpty": "Lista jest pusta",
+    "listStatusNumbers": "Liczby",
+    "errorField": "Pole jest puste",
+    "errorNaN": "Wpisana wartość nie jest cyfrą!"
+}
