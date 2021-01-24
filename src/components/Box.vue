@@ -39,19 +39,22 @@
             newNumber: function() {
                 const input = document.querySelector('input');
                 const val = input.value;
+                console.log(val);
                 const id = Math.random();
-                if (!val) {
-                    this.errorMessage = "Field is empty!";
+                if (val.search(",") >= 1) {
+                    this.errorMessage = "Use a period as a comma!";
                 } else if (isNaN(val)) {
-                    this.errorMessage = "Value is not a number!";
-                } else {
-                    this.numbers.push({v: parseInt(val, 10), id: id});
+                        this.errorMessage = "Value is not a number!";
+                } else if (!val) {
+                    this.errorMessage = "Field is empty!";
+                } 
+                else {
+                    this.numbers.push({v: parseFloat(val), id: id});
                     this.listStatus = "Numbers";
                     this.errorMessage = "";
                     this.getAverage();
                 }
                 this.isEmpty();
-
             },
             removeNumber: function(newID) {
                 for (let i = 0; i < this.numbers.length; i++) {
@@ -63,12 +66,13 @@
                 this.getAverage();
             },
             getAverage: function() {
-                let i = 0.00;
+                let i = 0;
                 let average;
                 for (let suma = 0; i < this.numbers.length; i++) {
                     suma = suma + this.numbers[i].v;
                     const average = suma / this.numbers.length;
                     this.average = average.toFixed(2);
+                    console.log(this.average);
                 }
                 this.isEmpty();
             },
