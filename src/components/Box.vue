@@ -17,7 +17,11 @@
             </div>
         </div>
 
-        <p class="box__result" v-if="numbers.length > 0">{{ average }}</p>
+        <p class="box__result" v-if="numbers.length > 0">
+            <span style="font-size: 15px">{{ translate.numbersCount }}: {{ numbers.length }}</span><br>
+            <span style="font-size: 17px">{{ translate.median }}: {{ median }}</span><br>
+            {{ translate.average }}: {{ average }}
+        </p>
     </div>
 </template>
 
@@ -77,11 +81,20 @@ import PolishTranslate from '../locales/pl.json'
             getAverage: function() {
                 let i = 0;
                 let average;
+                let arr = [];
                 for (let suma = 0; i < this.numbers.length; i++) {
                     suma = suma + this.numbers[i].v;
+                    arr.push(this.numbers[i].v);
                     const average = suma / this.numbers.length;
                     this.average = average.toFixed(2);
                 }
+
+                const arrSort = arr.sort();
+                const len = arrSort.length;
+                const mid = Math.ceil(len / 2);
+                const median = len % 2 == 0 ? (arrSort[mid] + arrSort[mid - 1]) / 2 : arrSort[mid - 1];
+
+                this.median = median;
             },
         },
         mounted() {
@@ -111,7 +124,7 @@ import PolishTranslate from '../locales/pl.json'
         text-align: right;
         margin-top: 20px;
         z-index: 99;
-        font-size: 18px;
+        font-size: 19px;
         font-weight: 500;
     }
 

@@ -8,5 +8,6 @@
     "errorField": "Field is empty!",
     "errorNaN": "Value is not a number!",
     "average": "AVERAGE",
+    "median": "MEDIAN",
     "numberCount": "NUMBERS"
 }

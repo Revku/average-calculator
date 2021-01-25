@@ -8,5 +8,6 @@
     "errorField": "Pole jest puste",
     "errorNaN": "Wpisana wartość nie jest cyfrą!",
     "average": "ŚREDNIA",
+    "median": "MEDIANA",
     "numbersCount": "LICZB"
 }
