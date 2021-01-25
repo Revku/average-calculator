@@ -125,7 +125,7 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
     overflow: auto;
     background-color: #fff;
     width: 450px;
-    height: 85vh;
+    height: 82vh;
     border-radius: 5px;
     position: relative;
 
