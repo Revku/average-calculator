@@ -12,7 +12,7 @@
 
         <div class="box__container" v-if="numbers.length > 0">
             <div v-for="number in numbers" :key="number.id" class="box__container__item">
-                <p class="input p">{{ number.v }}</p>
+                <p class="input p">{{ number.dN }}</p>
                 <button @click="removeNumber(number.id)" class="btn">{{ translate.removeButton }}</button>
             </div>
         </div>
@@ -63,7 +63,8 @@ import PolishTranslate from '../locales/pl.json'
                     this.errorMessage = this.translate.errorNaN;
                 } else {
                     const number = parseFloat(val).toFixed(2);
-                    this.numbers.push({v: parseFloat(number), id: id});
+                    const decorateNumber = number.replace(/\./g, ',');
+                    this.numbers.push({v: parseFloat(number), dN: decorateNumber, id: id});
                     this.listStatus = this.translate.listStatusNumbers;
                     this.errorMessage = "";
                     this.getAverage();
@@ -86,13 +87,14 @@ import PolishTranslate from '../locales/pl.json'
                     suma = suma + this.numbers[i].v;
                     arr.push(this.numbers[i].v);
                     const average = suma / this.numbers.length;
-                    this.average = average.toFixed(2);
+                    this.average = average.toFixed(2).replace(/\./g, ',');;
                 }
 
                 const arrSort = arr.sort();
                 const len = arrSort.length;
                 const mid = Math.ceil(len / 2);
-                const median = len % 2 == 0 ? (arrSort[mid] + arrSort[mid - 1]) / 2 : arrSort[mid - 1];
+                let median = len % 2 == 0 ? (arrSort[mid] + arrSort[mid - 1]) / 2 : arrSort[mid - 1];
+                median = parseFloat(median).toFixed(2).toString().replace(/\./g, ',');
 
                 this.median = median;
             },
