@@ -6,5 +6,7 @@
     "listStatusEmpty": "List is empty",
     "listStatusNumbers": "Numbers",
     "errorField": "Field is empty!",
-    "errorNaN": "Value is not a number!"
+    "errorNaN": "Value is not a number!",
+    "average": "AVERAGE",
+    "numberCount": "NUMBERS"
 }

@@ -10,14 +10,14 @@
 
         <p class="box__emptyerror">{{ listStatus }}</p>
 
-        <div class="box__container">
+        <div class="box__container" v-if="numbers.length > 0">
             <div v-for="number in numbers" :key="number.id" class="box__container__item">
                 <p class="input p">{{ number.v }}</p>
                 <button @click="removeNumber(number.id)" class="btn">{{ translate.removeButton }}</button>
             </div>
         </div>
 
-        <p class="box__result none">{{ average }}</p>
+        <p class="box__result" v-if="numbers.length > 0">{{ average }}</p>
     </div>
 </template>
 
@@ -65,7 +65,6 @@ import PolishTranslate from '../locales/pl.json'
                     this.getAverage();
                     input.value = '';
                 }
-                this.isEmpty();
             },
             removeNumber: function(newID) {
                 for (let i = 0; i < this.numbers.length; i++) {
@@ -73,7 +72,6 @@ import PolishTranslate from '../locales/pl.json'
                         this.numbers.splice(this.numbers[i], 1);
                     }
                 }
-                this.isEmpty();
                 this.getAverage();
             },
             getAverage: function() {
@@ -83,15 +81,6 @@ import PolishTranslate from '../locales/pl.json'
                     suma = suma + this.numbers[i].v;
                     const average = suma / this.numbers.length;
                     this.average = average.toFixed(2);
-                }
-                this.isEmpty();
-            },
-            isEmpty: function() {
-                if (this.numbers.length <= 0) {
-                    this.listStatus = this.translate.listStatusEmpty;
-                    document.querySelector('.box__result').classList.add('none');
-                } else {
-                    document.querySelector('.box__result').classList.remove('none');
                 }
             },
         },

@@ -6,5 +6,7 @@
     "listStatusEmpty": "Lista jest pusta",
     "listStatusNumbers": "Liczby",
     "errorField": "Pole jest puste",
-    "errorNaN": "Wpisana wartość nie jest cyfrą!"
+    "errorNaN": "Wpisana wartość nie jest cyfrą!",
+    "average": "ŚREDNIA",
+    "numbersCount": "LICZB"
 }
