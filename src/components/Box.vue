@@ -1,5 +1,6 @@
 <template>
     <div class="box">
+        <TranslateIcon class="box__icon" @click="changeTranslate()" />
         <div class="box__header">
             <h2>{{ translate.appTitle }}</h2>
         </div>
@@ -28,6 +29,8 @@
 <script>
 import EnglishTranslate from '../locales/en.json'
 import PolishTranslate from '../locales/pl.json'
+
+import TranslateIcon from  '@/components/TranslateIcon.vue'
     export default {
         name: 'Box',
         data: function() {
@@ -40,11 +43,21 @@ import PolishTranslate from '../locales/pl.json'
                 average: 0,
             }
         },
+        components: {
+            TranslateIcon
+        },
         methods: {
             checkTranslate() {
                 if (navigator.language == "pl-PL") {
                     this.translate = PolishTranslate;
                 } else {
+                    this.translate = EnglishTranslate;
+                }
+            },
+            changeTranslate() {
+                if (this.translate.lang == "en") {
+                    this.translate = PolishTranslate;
+                } else { 
                     this.translate = EnglishTranslate;
                 }
             },
@@ -130,6 +143,15 @@ import PolishTranslate from '../locales/pl.json'
         font-weight: 500;
     }
 
+    &__icon {
+        width: 35px; 
+        height: 35px;
+        fill: #1a1a1a;
+        position: absolute;
+        right: 30px;
+        cursor: pointer;
+    }
+
     img {
         width: 50px;
         display: inline-block;
@@ -139,7 +161,7 @@ import PolishTranslate from '../locales/pl.json'
     h2 {
         font-weight: 400;
         text-align: center;
-        margin-top: 30px;
+        margin-top: 50px;
         margin-bottom: 50px;
         margin-left: 30px;
     }
