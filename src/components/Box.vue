@@ -73,7 +73,7 @@ import PolishTranslate from '../locales/pl.json'
             removeNumber: function(newID) {
                 for (let i = 0; i < this.numbers.length; i++) {
                     if (this.numbers[i].id === newID) {
-                        this.numbers.splice(this.numbers[i], 1);
+                        this.numbers.splice(i, 1);
                     }
                 }
                 this.getAverage();
