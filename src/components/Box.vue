@@ -63,8 +63,8 @@ import PolishTranslate from '../locales/pl.json'
                     this.listStatus = this.translate.listStatusNumbers;
                     this.errorMessage = "";
                     this.getAverage();
+                    input.value = '';
                 }
-                input.value = '';
                 this.isEmpty();
             },
             removeNumber: function(newID) {
