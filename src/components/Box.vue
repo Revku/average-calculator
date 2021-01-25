@@ -155,11 +155,10 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
     }
 
     h2 {
-        font-weight: 400;
+        font-weight: 500;
         text-align: center;
-        margin-top: 50px;
+        margin-top: 60px;
         margin-bottom: 50px;
-        margin-left: 30px;
     }
 
     &__emptyerror {
