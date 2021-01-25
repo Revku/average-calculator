@@ -14,3 +14,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.home {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
