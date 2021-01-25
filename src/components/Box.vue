@@ -57,8 +57,10 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
             changeTranslate() {
                 if (this.translate.lang == "en") {
                     this.translate = PolishTranslate;
+                    this.listStatus = this.translate.listStatusEmpty;
                 } else { 
                     this.translate = EnglishTranslate;
+                    this.listStatus = this.translate.listStatusEmpty;
                 }
             },
             newNumber: function() {
