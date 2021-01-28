@@ -92,6 +92,10 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
                         this.numbers.splice(i, 1);
                     }
                 }
+
+                if (this.numbers == 0) {
+                    this.listStatus = this.translate.listStatusEmpty;
+                }
                 this.getAverage();
             },
             getAverage: function() {
