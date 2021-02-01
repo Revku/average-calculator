@@ -10,5 +10,7 @@
     "errorNaN": "Value is not a number!",
     "average": "AVERAGE",
     "median": "MEDIAN",
-    "numberCount": "NUMBERS"
+    "numbersCount": "NUMBERS",
+    "weightPlaceholder": "Number weight (default: 1)",
+    "weightCheckbox": "Add weight to number"
 }

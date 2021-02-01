@@ -10,5 +10,7 @@
     "errorNaN": "Wpisana wartość nie jest cyfrą!",
     "average": "ŚREDNIA",
     "median": "MEDIANA",
-    "numbersCount": "LICZB"
+    "numbersCount": "LICZB",
+    "weightPlaceholder": "Wpisz wagę liczby (domyślnie: 1)",
+    "weightCheckbox": "Dodaj wagę do liczby"
 }
