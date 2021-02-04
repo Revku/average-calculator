@@ -9,6 +9,16 @@
         <button @click="newNumber()" class="btn">{{ translate.addButton }}</button>
         <p class="errorbox">{{ errorMessage }}</p>
 
+        <div class="box__weight" v-if="weightStatus === true">
+        <input type="text" :placeholder="translate.weightPlaceholder" class="input" @keyup.enter="newNumber()">
+        <p class="errorbox">{{ errorWeightMessage }}</p>
+        </div>
+
+        <div class="box__checkweight">
+            <input type="checkbox" id="weight" @click="checkWeight()">
+            <label for="weight">{{ translate.weightCheckbox }}</label>
+        </div>
+
         <p class="box__emptyerror">{{ listStatus }}</p>
 
         <div class="box__container" v-if="numbers.length > 0">
@@ -38,6 +48,7 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
                 translate: EnglishTranslate,
                 errorMessage: '',
                 listStatus: '',
+                weightStatus: false,
 
                 numbers: [],
                 average: 0,
@@ -61,6 +72,15 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
                 } else { 
                     this.translate = EnglishTranslate;
                     this.listStatus = this.translate.listStatusEmpty;
+                }
+            },
+            checkWeight() {
+                const checkbox = document.querySelector('#weight');
+
+                if (checkbox.checked) {
+                    this.weightStatus = true;
+                } else {
+                    this.weightStatus = false;
                 }
             },
             newNumber: function() {
