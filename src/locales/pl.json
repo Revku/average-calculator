@@ -11,6 +11,7 @@
     "average": "ŚREDNIA",
     "median": "MEDIANA",
     "numbersCount": "LICZB",
+    "weight": "Waga",
     "weightPlaceholder": "Wpisz wagę liczby (domyślnie: 1)",
     "weightCheckbox": "Dodaj wagę do liczby"
 }

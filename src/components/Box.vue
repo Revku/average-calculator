@@ -10,8 +10,8 @@
         <p class="errorbox">{{ errorMessage }}</p>
 
         <div class="box__weight" v-if="weightStatus === true">
-        <input type="text" :placeholder="translate.weightPlaceholder" class="input" @keyup.enter="newNumber()">
-        <p class="errorbox">{{ errorWeightMessage }}</p>
+        <input type="text" :placeholder="translate.weightPlaceholder" class="input" id="weightinput" @keyup.enter="newNumber()">
+        <p class="errorbox">{{ weightErrorMessage }}</p>
         </div>
 
         <div class="box__checkweight">
@@ -23,7 +23,7 @@
 
         <div class="box__container" v-if="numbers.length > 0">
             <div v-for="number in numbers" :key="number.id" class="box__container__item">
-                <p class="input p">{{ number.dN }}</p>
+                <p class="input p">{{ number.dN }} <span style="font-size: 12px; color: gray; margin-left: 2px;">({{ translate.weight }}: {{ number.weight }})</span></p>
                 <button @click="removeNumber(number.id)" class="btn">{{ translate.removeButton }}</button>
             </div>
         </div>
@@ -40,13 +40,17 @@
 import EnglishTranslate from '../locales/en.json'
 import PolishTranslate from '../locales/pl.json'
 
+import GlobalConfig from '../config/global.json'
+
 import TranslateIcon from  '@/components/TranslateIcon.vue'
     export default {
         name: 'Box',
         data: function() {
             return {
                 translate: EnglishTranslate,
+                config: GlobalConfig,
                 errorMessage: '',
+                weightErrorMessage: '',
                 listStatus: '',
                 weightStatus: false,
 
@@ -87,6 +91,25 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
                 const input = document.querySelector('input');
                 const id = Math.random();
                 let val = input.value;
+                let weight = 1;
+
+
+                if (this.weightStatus === true) {
+                    const weightInput = document.getElementById('weightinput');
+
+                    if (!weightInput.value) {
+                        this.weightErrorMessage = this.translate.errorField;
+                        return 0;
+                    } else {
+                        weight = weightInput.value;
+                    }
+
+                    if (isNaN(weight)) {
+                        this.weightErrorMessage = this.translate.errorNaN;
+                    }
+                }
+
+
 
                 if (val.search(",") >= 0) {
                     val = val.replace(/,/g, '.');
@@ -94,17 +117,30 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
 
                 if (!val) {
                     this.errorMessage = this.translate.errorField;
-                } else if (isNaN(val)) {
+                    return 0;
+                }
+                if (isNaN(val)) {
                     this.errorMessage = this.translate.errorNaN;
-                } else {
-                    const number = parseFloat(val).toFixed(2);
-                    const decorateNumber = number.replace(/\./g, ',');
-                    this.numbers.push({v: parseFloat(number), dN: decorateNumber, id: id});
-                    this.listStatus = this.translate.listStatusNumbers;
-                    this.errorMessage = "";
-                    this.getAverage();
+                    return 0;
+                }
+
+                const number = parseFloat(val).toFixed(2);
+                const decorateNumber = number.replace(/\./g, ',');
+                this.numbers.push({v: parseFloat(number), dN: decorateNumber, weight: parseInt(weight), id: id});
+                this.listStatus = this.translate.listStatusNumbers;
+
+                if (this.config.autoClearNumber === true) {
                     input.value = '';
                 }
+
+                if (this.config.autoClearWeight === true && this.weightStatus === true) {
+                    weightInput.value = '';
+                }
+
+                this.weightErrorMessage = "";
+                this.errorMessage = "";
+
+                this.getAverage();
             },
             removeNumber: function(newID) {
                 for (let i = 0; i < this.numbers.length; i++) {
