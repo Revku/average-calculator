@@ -1,5 +1,8 @@
 # Average Calculator
 
+## ❓ Informations
+This is simple average calculator.
+
 ## Project setup
 ```
 npm install
