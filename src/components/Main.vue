@@ -23,7 +23,7 @@
 
         <div class="box__container" v-if="numbers.length > 0">
             <div v-for="number in numbers" :key="number.id" class="box__container__item">
-                <p class="input p">{{ number.dN }} <span style="font-size: 12px; color: gray; margin-left: 2px;">({{ translate.weight }}: {{ number.weight }})</span></p>
+                <p class="input p">{{ number.number }} <span style="font-size: 12px; color: gray; margin-left: 2px;">({{ translate.weight }}: {{ number.weight }})</span></p>
                 <button @click="removeNumber(number.id)" class="btn">{{ translate.removeButton }}</button>
             </div>
         </div>
@@ -44,7 +44,7 @@ import GlobalConfig from '../config/global.json'
 
 import TranslateIcon from  '@/components/TranslateIcon.vue'
     export default {
-        name: 'Box',
+        name: 'Main',
         data: function() {
             return {
                 translate: EnglishTranslate,
@@ -56,6 +56,7 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
 
                 numbers: [],
                 average: 0,
+                length: 0,
             }
         },
         components: {
@@ -109,8 +110,6 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
                     }
                 }
 
-
-
                 if (val.search(",") >= 0) {
                     val = val.replace(/,/g, '.');
                 }
@@ -123,11 +122,23 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
                     this.errorMessage = this.translate.errorNaN;
                     return 0;
                 }
-
+                
                 const number = parseFloat(val).toFixed(2);
                 const decorateNumber = number.replace(/\./g, ',');
-                this.numbers.push({v: parseFloat(number), dN: decorateNumber, weight: parseInt(weight), id: id});
+
+                const numberObject = {
+                    value: parseFloat(number),
+                    number: decorateNumber,
+                    weight: parseInt(weight),
+                    id: id,
+                }
+
+                this.numbers.push(numberObject);
                 this.listStatus = this.translate.listStatusNumbers;
+                this.length = this.length + weight;
+
+                console.log(this.length);
+                console.log(numberObject);
 
                 if (this.config.autoClearNumber === true) {
                     input.value = '';
@@ -159,8 +170,8 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
                 let average;
                 let arr = [];
                 for (let suma = 0; i < this.numbers.length; i++) {
-                    suma = suma + this.numbers[i].v;
-                    arr.push(this.numbers[i].v);
+                    suma = suma + this.numbers[i].value;
+                    arr.push(this.numbers[i].value);
                     const average = suma / this.numbers.length;
                     this.average = average.toFixed(2).replace(/\./g, ',');;
                 }

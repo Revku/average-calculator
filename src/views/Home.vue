@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Box />
+    <Main />
     <p class="home__footer">
       <a href="https://github.com/TheRevQ/average-calculator" target="_blank">Open source</a> by TheRevQ
     </p>
@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import Box from '@/components/Box.vue'
+import Main from '@/components/Main.vue'
 
 export default {
   name: 'Home',
   components: {
-    Box
+    Main
   }
 }
 </script>
