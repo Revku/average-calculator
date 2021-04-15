@@ -15,7 +15,7 @@
         </div>
 
         <div class="box__checkweight">
-            <input type="checkbox" id="weight" @click="checkWeight()">
+            <input type="checkbox" class="switch" id="weight" @click="checkWeight()">
             <label for="weight">{{ translate.weightCheckbox }}</label>
         </div>
 
@@ -135,10 +135,7 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
 
                 this.numbers.push(numberObject);
                 this.listStatus = this.translate.listStatusNumbers;
-                this.length = this.length + weight;
-
-                console.log(this.length);
-                console.log(numberObject);
+                this.length = parseInt(this.length + parseInt(weight));
 
                 if (this.config.autoClearNumber === true) {
                     input.value = '';
@@ -156,6 +153,7 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
             removeNumber: function(newID) {
                 for (let i = 0; i < this.numbers.length; i++) {
                     if (this.numbers[i].id === newID) {
+                        this.length = this.length - this.numbers[i].weight;
                         this.numbers.splice(i, 1);
                     }
                 }
@@ -168,11 +166,13 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
             getAverage: function() {
                 let i = 0;
                 let average;
+                let length = this.length;
                 let arr = [];
                 for (let suma = 0; i < this.numbers.length; i++) {
-                    suma = suma + this.numbers[i].value;
+                    let val = parseInt(this.numbers[i].value) * parseInt(this.numbers[i].weight)
+                    suma = suma + val;
                     arr.push(this.numbers[i].value);
-                    const average = suma / this.numbers.length;
+                    const average = suma / length;
                     this.average = average.toFixed(2).replace(/\./g, ',');;
                 }
 
@@ -210,6 +210,15 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
         z-index: 99;
         font-size: 19px;
         font-weight: 500;
+    }
+
+    &__checkweight {
+        margin-top: 15px;
+        font-family: 'Inter', 'Poppins';
+
+        label {
+            margin-left: 10px;
+        }
     }
 
     &__icon {

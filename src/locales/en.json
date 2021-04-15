@@ -12,6 +12,6 @@
     "median": "MEDIAN",
     "numbersCount": "NUMBERS",
     "weight": "Weight",
-    "weightPlaceholder": "Number weight (default: 1)",
+    "weightPlaceholder": "Number weight",
     "weightCheckbox": "Add weight to number"
 }
