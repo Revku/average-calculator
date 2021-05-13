@@ -282,4 +282,9 @@ import TranslateIcon from  '@/components/TranslateIcon.vue'
 
     }
 }
+
+.btn:hover {
+   color: white;
+   background-color: #414155;
+}
 </style>
